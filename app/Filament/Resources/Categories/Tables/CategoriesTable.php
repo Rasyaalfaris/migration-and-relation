@@ -8,9 +8,10 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Storage;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Columns\ImageColumn;
 
 class CategoriesTable
 {
@@ -19,7 +20,7 @@ class CategoriesTable
         return $table
             ->columns([
                 TextColumn::make('nama')->searchable()->sortable(),
-                ImageColumn::make('icon')->circular()->disk('public'),
+                ImageColumn::make('icon')->circular()
             ])
             ->filters([
                 TrashedFilter::make(),

@@ -8,6 +8,7 @@ use Filament\Actions\ViewAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Support\Facades\Storage;
 use Filament\Tables\Columns\ImageColumn;
 
 class BrandsTable
@@ -19,7 +20,7 @@ class BrandsTable
                 TextColumn::make('name')
                     ->searchable(),
                 ImageColumn::make('logo')
-                    ->circular()->disk('public'),
+                    ->url(fn($record) => Storage::url($record->logo) ),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()

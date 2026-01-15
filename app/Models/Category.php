@@ -18,7 +18,7 @@ class Category extends Model
     {
         return $this->hasMany(Produk::class);
     }
-    public function setNameAtrribute($value) 
+    public function setNameAttribute($value) 
     {
         $this->attributes['nama'] = $value;
         $this->attributes['slug'] = Str::slug($value);

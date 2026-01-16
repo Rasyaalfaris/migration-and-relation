@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('produks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug');
+            $table->string('slug')->nullable();
             $table->string('thumbnail');
             $table->text('about');
             $table->boolean('is_popular');
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('stock');
             $table->foreignId('category_id')->constrained()->OnDelete('cascade');
             $table->foreignId('brand_id')->constrained()->OnDelete('cascade');
+            $table->SoftDeletes();
             $table->timestamps();
         });
     }

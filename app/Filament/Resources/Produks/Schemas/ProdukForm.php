@@ -2,10 +2,15 @@
 
 namespace App\Filament\Resources\Produks\Schemas;
 
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
+use App\Models\Brand;
+use App\Models\Category;
 use Filament\Schemas\Schema;
+use function Laravel\Prompts\search;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 
 class ProdukForm
 {
@@ -15,10 +20,10 @@ class ProdukForm
             ->components([
                 TextInput::make('name')
                     ->required(),
-                TextInput::make('slug')
-                    ->required(),
-                TextInput::make('thumbnail')
-                    ->required(),
+                FileUpload::make('thumbnail')
+                    ->required()
+                    ->image()
+                    ->directory('Produks'),
                 Textarea::make('about')
                     ->required()
                     ->columnSpanFull(),
@@ -27,16 +32,20 @@ class ProdukForm
                 TextInput::make('price')
                     ->required()
                     ->numeric()
-                    ->prefix('$'),
+                    ->prefix('IDR'),
                 TextInput::make('stock')
                     ->required()
                     ->numeric(),
-                TextInput::make('category_id')
+                Select::make('category_id')
                     ->required()
-                    ->numeric(),
-                TextInput::make('brand_id')
+                    ->label('Category')
+                    ->options(Category::pluck('nama', 'id')->toArray())
+                    ->searchable(),
+                Select::make('brand_id')
                     ->required()
-                    ->numeric(),
+                    ->label('Brand')
+                    ->options(Brand::pluck('name', 'id')->toArray())
+                    ->searchable(),
             ]);
     }
 }

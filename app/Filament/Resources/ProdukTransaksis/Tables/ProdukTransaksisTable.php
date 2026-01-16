@@ -2,16 +2,17 @@
 
 namespace App\Filament\Resources\ProdukTransaksis\Tables;
 
+use Filament\Tables\Table;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Filament\Actions\ViewAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\TrashedFilter;
-use Filament\Tables\Table;
+use Filament\Actions\ForceDeleteBulkAction;
 
 class ProdukTransaksisTable
 {
@@ -32,8 +33,8 @@ class ProdukTransaksisTable
                     ->searchable(),
                 TextColumn::make('kode_pos')
                     ->searchable(),
-                TextColumn::make('bukti_pembayaran')
-                    ->searchable(),
+                ImageColumn::make('bukti_pembayaran')
+                    ->circular(),
                 TextColumn::make('produk_size')
                     ->numeric()
                     ->sortable(),

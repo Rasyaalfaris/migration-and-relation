@@ -2,11 +2,15 @@
 
 namespace App\Filament\Resources\ProdukTransaksis\Schemas;
 
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Toggle;
+use App\Models\Produk;
+use App\Models\PromoCode;
 use Filament\Schemas\Schema;
+use App\Models\ProdukTransaksi;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
 
 class ProdukTransaksiForm
 {
@@ -24,12 +28,19 @@ class ProdukTransaksiForm
                     ->email()
                     ->required(),
                 TextInput::make('booking_trx_id')
-                    ->required(),
+                    ->required()
+                    ->dehydrated()
+                    ->disabled()
+                    ->default(function (){
+                        return (new ProdukTransaksi())->generateUniqueTrxId();
+                    }),
                 TextInput::make('kota')
                     ->required(),
                 TextInput::make('kode_pos')
                     ->required(),
-                TextInput::make('bukti_pembayaran')
+                FileUpload::make('bukti_pembayaran')
+                    ->image()
+                    ->directory('BuktiPembayaran')
                     ->required(),
                 TextInput::make('produk_size')
                     ->required()
@@ -49,10 +60,15 @@ class ProdukTransaksiForm
                 Toggle::make('is_paid')
                     ->required(),
                 Select::make('produk_id')
-                    ->relationship('produk', 'name')
-                    ->required(),
+                    ->options(Produk::pluck('name','id')->toArray())
+                    ->required()
+                    ->label('Produk')
+                    ->searchable(),
                 Select::make('promo_code_id')
-                    ->relationship('promoCode', 'id'),
+                    ->required()
+                    ->label('Promo Code')
+                    ->options(PromoCode::pluck('kode','id')->toArray())
+                    ->searchable(),
             ]);
     }
 }

@@ -11,6 +11,7 @@ class ProdukTransaksi extends Model
 {
     /** @use HasFactory<\Database\Factories\ProdukTransaksiFactory> */
     use HasFactory, SoftDeletes;
+    protected $guarded = ['id'];
     public function generateUniqueTrxId(){
         $prefix = 'TJH';
         do {

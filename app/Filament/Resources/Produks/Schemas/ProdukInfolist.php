@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\Produks\Schemas;
 
+use Filament\Schemas\Schema;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Schemas\Schema;
+use Filament\Infolists\Components\ImageEntry;
 
 class ProdukInfolist
 {
@@ -14,7 +15,7 @@ class ProdukInfolist
             ->components([
                 TextEntry::make('name'),
                 TextEntry::make('slug'),
-                TextEntry::make('thumbnail'),
+                ImageEntry::make('thumbnail'),
                 TextEntry::make('about')
                     ->columnSpanFull(),
                 IconEntry::make('is_popular')

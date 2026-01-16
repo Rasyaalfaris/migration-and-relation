@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\ProdukTransaksis\Schemas;
 
+use Filament\Schemas\Schema;
 use App\Models\ProdukTransaksi;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
-use Filament\Schemas\Schema;
+use Filament\Infolists\Components\ImageEntry;
 
 class ProdukTransaksiInfolist
 {
@@ -20,7 +21,7 @@ class ProdukTransaksiInfolist
                 TextEntry::make('booking_trx_id'),
                 TextEntry::make('kota'),
                 TextEntry::make('kode_pos'),
-                TextEntry::make('bukti_pembayaran'),
+                ImageEntry::make('bukti_pembayaran'),
                 TextEntry::make('produk_size')
                     ->numeric(),
                 TextEntry::make('alamat')

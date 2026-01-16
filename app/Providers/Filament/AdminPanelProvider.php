@@ -28,6 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('')
             ->login()
+            ->brandname('alam semu')
+            ->favicon(asset('icon.png'))
             ->colors([
                 'primary' => Color::Amber,
             ])

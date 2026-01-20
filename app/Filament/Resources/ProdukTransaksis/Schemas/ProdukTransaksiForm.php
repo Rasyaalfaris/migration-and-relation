@@ -51,12 +51,6 @@ class ProdukTransaksiForm
                 TextInput::make('kuantitas')
                     ->required()
                     ->numeric(),
-                TextInput::make('jumlah_subtotal')
-                    ->required()
-                    ->numeric(),
-                TextInput::make('jumlah_grandtotal')
-                    ->required()
-                    ->numeric(),
                 Toggle::make('is_paid')
                     ->required(),
                 Select::make('produk_id')
@@ -65,7 +59,6 @@ class ProdukTransaksiForm
                     ->label('Produk')
                     ->searchable(),
                 Select::make('promo_code_id')
-                    ->required()
                     ->label('Promo Code')
                     ->options(PromoCode::pluck('kode','id')->toArray())
                     ->searchable(),

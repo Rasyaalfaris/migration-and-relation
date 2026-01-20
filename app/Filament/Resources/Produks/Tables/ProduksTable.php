@@ -27,17 +27,18 @@ class ProduksTable
                 IconColumn::make('is_popular')
                     ->boolean(),
                 TextColumn::make('price')
-                    ->money()
+                    ->label('harga')
+                    ->money('IDR')
                     ->sortable(),
                 TextColumn::make('stock')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('category_id')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('brand_id')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('category.nama')
+                    ->label('kategori')
+                    ->searchable(),
+                TextColumn::make('brand.name')
+                    ->label('brand')
+                    ->searchable(),
                 TextColumn::make('deleted_at')
                     ->dateTime()
                     ->sortable()

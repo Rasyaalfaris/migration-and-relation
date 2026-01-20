@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProdukTransaksiResource extends Resource
 {
-protected static ?string $navigationLabel = 'Produk Transaksis';
+protected static ?string $navigationLabel = 'Transaksi';
 protected static ?string $model = ProdukTransaksi::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

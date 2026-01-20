@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PromoCodeResource extends Resource
 {
-    protected static ?string $navigationLabel = 'Promo Codes';
+    protected static ?string $navigationLabel = 'kode promo';
     protected static ?string $model = PromoCode::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedRectangleStack;

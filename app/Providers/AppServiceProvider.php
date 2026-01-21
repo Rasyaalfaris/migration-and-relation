@@ -19,6 +19,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Filament\Facades\Filament::registerNavigationGroups([
+            'Master Data' => 40,
+            'Transaksi' => 30,
+            'Laporan' => 20,
+            'Pengaturan' => 10,
+        ]);
     }
 }

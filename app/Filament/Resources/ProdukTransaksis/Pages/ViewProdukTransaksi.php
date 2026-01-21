@@ -2,10 +2,11 @@
 
 namespace App\Filament\Resources\ProdukTransaksis\Pages;
 
-use App\Filament\Resources\ProdukTransaksis\ProdukTransaksiResource;
-use Filament\Actions\EditAction;
 use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\ViewRecord;
+use App\Filament\Resources\ProdukTransaksis\ProdukTransaksiResource;
 
 class ViewProdukTransaksi extends ViewRecord
 {
@@ -18,17 +19,15 @@ class ViewProdukTransaksi extends ViewRecord
                 ->label('Preview PDF')
                 ->icon('heroicon-o-eye')
                 ->color('info')
-                ->action(function () {
-                    return $this->record->generatePdfPreview();
-                }),
+                ->url(fn ($record) => route('preview_transaksi.pdf', $record->id)),
+                    
             Action::make('downloadPdf')
                 ->label('Download PDF')
                 ->icon('heroicon-o-document-arrow-down')
                 ->color('success')
-                ->action(function () {
-                    return $this->record->generatePdf()->download();
-                }),
+                ->url(fn ($record) => route('transaksi.pdf', $record->id)),
             EditAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

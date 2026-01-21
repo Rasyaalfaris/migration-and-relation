@@ -7,14 +7,17 @@ use Filament\Actions\Action;
 use App\Models\ProdukTransaksi;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Actions\BulkAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
 use Filament\Actions\ActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Filters\TrashedFilter;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Filament\Actions\RestoreBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -70,49 +73,26 @@ class ProdukTransaksisTable
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->actions([
-                ActionGroup::make([
-                    Action::make('downloadPdf')
-                        ->label('Download PDF')
-                        ->icon('heroicon-o-document-arrow-down')
-                        ->color('success')
-                        ->action(function (ProdukTransaksi $record) {
-                            $transaksi = $record->load(['produk', 'promocode']);
-                            
-                            $html = view('transaksi.pdf', [
-                                'transaksi' => $transaksi,
-                            ])->render();
-                            
-                            $html = iconv('UTF-8', 'ISO-8859-1//IGNORE', $html);
-                            
-                            $pdf = Pdf::loadHTML($html);
-                            $filename = 'transaksi_' . $record->booking_trx_id . '.pdf';
-                            return $pdf->download($filename);
-                        }),
-                ])->button(),
+
+            ->filters([
+                TrashedFilter::make(),
             ])
-            ->bulkActions([
+            ->recordActions([
+                ViewAction::make(),
+                EditAction::make(),
+                DeleteAction::make(),
+                Action::make('laporan')
+                ->label('Download PDF')
+                ->icon('heroicon-o-document-arrow-down')
+                ->color('success')
+                ->url(fn ($record)=> route('transaksi.pdf', $record->id))
+                ->openUrlInNewTab(),
+            ])
+                ->toolbarActions([
                 BulkActionGroup::make([
-                    BulkAction::make('downloadPdf')
-                        ->label('Download PDF')
-                        ->icon('heroicon-o-document-arrow-down')
-                        ->color('success')
-                        ->action(function (Collection $records) {
-                            $transaksis = $records->load(['produk', 'promocode']);
-                            
-                            $html = view('transaksi.all-pdf', [
-                                'transaksis' => $transaksis,
-                            ])->render();
-                            
-                            $html = iconv('UTF-8', 'ISO-8859-1//IGNORE', $html);
-                            
-                            $pdf = Pdf::loadHTML($html);
-                            $filename = 'Laporan_' . now()->format('d-m-Y_H-i-s') . '.pdf';
-                            return $pdf->download($filename);
-                        }),
                     DeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
                     ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ])
             ->filters([

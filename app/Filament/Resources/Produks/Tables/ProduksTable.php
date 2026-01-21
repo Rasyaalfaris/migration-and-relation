@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Produks\Tables;
 use Filament\Tables\Table;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
@@ -58,6 +59,7 @@ class ProduksTable
             ->recordActions([
                 ViewAction::make(),
                 EditAction::make(),
+                DeleteAction::Make(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

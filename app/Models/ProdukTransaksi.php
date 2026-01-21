@@ -34,19 +34,8 @@ class ProdukTransaksi extends Model
     /**
      * Generate PDF untuk transaksi
      */
-    public function generatePdf()
-    {
-        return Pdf::view('transaksi.pdf', ['transaksi' => $this])
-            ->name("transaksi-{$this->booking_trx_id}.pdf");
-    }
-
     /**
      * Generate PDF preview dalam browser
      */
-    public function generatePdfPreview()
-    {
-        return Pdf::view('transaksi.pdf', ['transaksi' => $this])
-            ->inline();
-    }
     
 }

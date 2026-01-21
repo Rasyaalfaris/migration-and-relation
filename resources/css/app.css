@@ -1,5 +1,11 @@
 @import 'tailwindcss';
+.fi-sidebar {
+    background-color: #4773da;
+}
 
+.fi-topbar {
+    border-bottom: 1px solid #596881;
+}
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';

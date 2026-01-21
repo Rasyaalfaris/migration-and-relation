@@ -1,8 +1,12 @@
-@extend('layout.main')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <title>Laporan Transaksi</title>
     <h1>LAPORAN SEMUA TRANSAKSI</h1>
-    <p>Tanggal: {{ date('d-m-Y H:i:s') }} | Total: {{ count($transaksis) }} transaksi</p>
+    <p>Tanggal: {{ date('d-m-Y H:i:s') }} | Total: {{ count($record) }} transaksi</p>
     
     <table>
         <thead>
@@ -17,7 +21,7 @@
             </tr>
         </thead>
         <tbody>
-            @forelse($transaksis as $t)
+            @forelse($record as $t)
             <tr>
                 <td>{{ isset($t->booking_trx_id) ? trim($t->booking_trx_id) : '-' }}</td>
                 <td>{{ isset($t->nama) ? trim($t->nama) : '-' }}</td>
@@ -54,4 +58,3 @@
     <p style="font-size: 9px; text-align: center; margin-top: 20px;">Laporan otomatis - Hak Cipta {{ date('Y') }}</p>
 </body>
 </html>
-@endsection

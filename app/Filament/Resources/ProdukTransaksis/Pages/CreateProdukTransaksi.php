@@ -18,8 +18,18 @@ class CreateProdukTransaksi extends CreateRecord
         $produk = Produk::find($data["produk_id"]);
         $harga = $produk->price * $data['kuantitas'];
 
-        
-
+        $produk = Produk::findOrFail($data['produk_id']);
+        if($produk->stock <= 0){
+            throw ValidationException::withMessages([
+                'produk_id' => 'Stok produk tidak mencukupi.',
+            ]);
+        }
+        if ($produk->stock < $data['kuantitas']) {
+            throw ValidationException::withMessages([
+                'kuantitas' => 'melebihi stok yang ada (stok: '. $produk->stock . ' items).',
+            ]);
+        }
+        $harga = $produk->price * $data['kuantitas'];
         $grandTotal = $harga;
 
         if (!empty($data['promo_code_id'])) {

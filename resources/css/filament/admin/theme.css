@@ -1,0 +1,177 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+@source '../../../../app/Filament/**/*';
+@source '../../../../resources/views/filament/**/*';
+/* =========================================================
+   DESIGN TOKENS (GLOBAL)
+   ========================================================= */
+:root {
+    --primary-color: #3b82f6;
+
+    --radius-sm: 6px;
+    --radius-md: 10px;
+
+    --shadow-sm: 0 2px 6px rgba(0,0,0,.05);
+    --shadow-md: 0 8px 24px rgba(0,0,0,.06);
+}
+
+/* =========================================================
+   SIDEBAR (DARK MODE)
+   ========================================================= */
+.fi-sidebar {
+    background-color: #0b1220;
+    border-right: 1px solid rgba(255,255,255,0.05);
+}
+
+.fi-sidebar-group-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+.fi-sidebar-item {
+    border-radius: 8px;
+    padding: 0.45rem 0.75rem;
+    color: rgba(255,255,255,0.7);
+    transition: background-color .15s ease;
+}
+
+.fi-sidebar-item:hover {
+    background-color: rgba(255,255,255,0.06);
+}
+
+.fi-sidebar-item-active {
+    background-color: rgba(59,130,246,0.18);
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-label {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.fi-sidebar-item-icon {
+    opacity: 0.7;
+}
+
+.fi-sidebar-item-active .fi-sidebar-item-icon {
+    opacity: 1;
+}
+
+/* Scrollbar sidebar */
+.fi-sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fi-sidebar::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 6px;
+}
+
+/* =========================================================
+   PAGE HEADER (HIERARKI JELAS)
+   ========================================================= */
+.fi-header {
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.fi-header-heading {
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+}
+
+.fi-header-actions {
+    gap: 0.5rem;
+}
+
+/* =========================================================
+   CARD SYSTEM (RHYTHM VISUAL)
+   ========================================================= */
+.fi-card {
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid #e5e7eb;
+}
+
+.fi-card > * {
+    padding: 1rem;
+}
+
+/* jarak antar card */
+.fi-section-content {
+    gap: 1rem;
+}
+
+/* =========================================================
+   BUTTON (STABIL, NON-GIMMICK)
+   ========================================================= */
+.fi-btn {
+    border-radius: var(--radius-sm);
+    transition: background-color .15s ease, box-shadow .15s ease;
+}
+
+.fi-btn-primary {
+    background-color: var(--primary-color);
+}
+
+.fi-btn-primary:hover {
+    box-shadow: 0 0 0 2px rgba(59,130,246,.35);
+}
+
+/* =========================================================
+   FORM (CEPAT & AKURAT)
+   ========================================================= */
+.fi-input,
+.fi-select-input,
+.fi-textarea {
+    border-radius: var(--radius-sm);
+    border: 1px solid #d1d5db;
+}
+
+.fi-input:focus,
+.fi-select-input:focus,
+.fi-textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(59,130,246,.25);
+}
+
+/* error state */
+.fi-input-error {
+    border-color: #ef4444;
+}
+
+.fi-input-error:focus {
+    box-shadow: 0 0 0 2px rgba(239,68,68,.25);
+}
+
+/* =========================================================
+   TABLE (DENSITY & READABILITY)
+   ========================================================= */
+.fi-ta-table {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.fi-ta-row {
+    height: 44px;
+}
+
+.fi-ta-row:nth-child(even) {
+    background-color: rgba(0,0,0,0.02);
+}
+
+.fi-ta-row:hover {
+    background-color: rgba(59,130,246,0.04);
+}
+
+.fi-ta-cell {
+    padding: 0.5rem 0.75rem;
+    vertical-align: middle;
+}
+
+/* table actions */
+.fi-ta-actions {
+    gap: 0.25rem;
+}

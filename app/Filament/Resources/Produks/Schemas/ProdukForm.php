@@ -42,8 +42,7 @@ class ProdukForm
                     ->label('tentang')
                     ->required()
                     ->columnSpanFull(),
-                Toggle::make('is_popular')
-                    ->required(),
+                Toggle::make('is_popular'),
                 TextInput::make('price')
                     ->required()
                     ->numeric()
@@ -55,7 +54,7 @@ class ProdukForm
                 Select::make('category_id')
                     ->required()
                     ->label('Category')
-                    ->relationship('category', 'name')
+                    ->options(Category::pluck('nama', 'id')->toArray())
                     ->searchable(),
                 Select::make('brand_id')
                     ->required()
@@ -65,7 +64,7 @@ class ProdukForm
                     Repeater::make('sizes')
                     ->relationship('sizes')
                     ->schema([
-                        TextInput::make('size')
+                        TextInput::make('ukuran')
                     ])
             ]);
     }

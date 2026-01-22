@@ -4,6 +4,7 @@ namespace App\Filament\Resources\ProdukTransaksis\Schemas;
 
 use App\Models\Produk;
 use App\Models\PromoCode;
+use App\Models\ProdukSize;
 use Filament\Schemas\Schema;
 use App\Models\ProdukTransaksi;
 use Filament\Forms\Components\Select;
@@ -42,22 +43,39 @@ class ProdukTransaksiForm
                     ->image()
                     ->directory('BuktiPembayaran')
                     ->required(),
-                TextInput::make('produk_size')
+                    Select::make('produk_id')
+                    ->options(Produk::pluck('name','id')->toArray())
                     ->required()
-                    ->numeric(),
+                    ->reactive()
+                    ->label('Produk')
+                    ->searchable()
+                    ->afterStateUpdated(fn(callable $set) => $set('produk_size', null)),
+                Select::make('produk_size')
+                    ->required()
+                    ->options(function (callable $get) {
+                        $produkId = $get('produk_id');
+                        if (! $produkId) {
+                                return [];
+                            }
+                        return ProdukSize::where('produk_id', $produkId)
+                    ->pluck('ukuran', 'id');
+                    })
+                    ->disabled(fn (callable $get) => ! $get('produk_id'))
+                    ->reactive(),
+                    // Select::make('produk_size')
+                    // ->label('Ukuran Produk')
+                    // ->required()
+                    // ->options(ProdukSize::pluck('ukuran', 'id')->toArray())
+                    // ->searchable()
+                    // ->disabled(fn (callable $get) => ! $get('produk_id'))
+                    // ->reactive(),
                 Textarea::make('alamat')
                     ->required()
                     ->columnSpanFull(),
                 TextInput::make('kuantitas')
                     ->required()
                     ->numeric(),
-                Toggle::make('is_paid')
-                    ->required(),
-                Select::make('produk_id')
-                    ->options(Produk::pluck('name','id')->toArray())
-                    ->required()
-                    ->label('Produk')
-                    ->searchable(),
+                Toggle::make('is_paid'),
                 Select::make('promo_code_id')
                     ->label('Promo Code')
                     ->options(PromoCode::pluck('kode','id')->toArray())

@@ -8,12 +8,14 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 use App\Filament\Resources\ProdukTransaksis\ProdukTransaksiResource;
+use Filament\Livewire\Notifications;
+use Filament\Notifications\Notification as NotificationsNotification;
 
 class CreateProdukTransaksi extends CreateRecord
 {
     protected static string $resource = ProdukTransaksiResource::class;
 
-    protected function mutateFormDataBeforeCreate(array $data): array
+    protected function mutateFormDataBeforeCreate(array $data):array 
     {
         $produk = Produk::find($data["produk_id"]);
         $harga = $produk->price * $data['kuantitas'];
@@ -25,9 +27,11 @@ class CreateProdukTransaksi extends CreateRecord
             ]);
         }
         if ($produk->stock < $data['kuantitas']) {
-            throw ValidationException::withMessages([
-                'kuantitas' => 'melebihi stok yang ada (stok: '. $produk->stock . ' items).',
-            ]);
+            Notifications::make()
+            ->title("stock tidak mencukupi")
+            ->danger()
+            ->send();
+        $this->halt();
         }
         $harga = $produk->price * $data['kuantitas'];
         $grandTotal = $harga;

@@ -24,4 +24,14 @@ Route::get('/transaksi/preview{id}', function ($id) {
     $record = ProdukTransaksi::findOrFail($id);
     return view('transaksi.preview', compact('record'));
 })->name('preview_transaksi.pdf');
+Route::get('/transaksi/all-pdf', function (){
+    $records = ProdukTransaksi::all();
+    $pdf = Pdf::loadView('transaksi.all-pdf', [
+        'records' => $records,
+    ]);
+
+    return $pdf->download(
+        "laporan-semua-transaksi.pdf"
+    );
+})->name('print_all.pdf');
 
